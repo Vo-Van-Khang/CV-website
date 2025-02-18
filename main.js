@@ -1,3 +1,42 @@
+function handleClick(e){
+    const imageView = document.querySelectorAll('.imageView');
+
+        if(e.target && e.target.closest('.imageViewWrapper') === e.target){
+            document.querySelector('.imageViewWrapper').remove();
+        }
+
+        if(e.target && e.target.closest('.button')){
+            let imageDisplay = document.querySelector('.imageDisplay');
+
+            if(e.target.closest('.button').classList.contains('previous')){ 
+                imageDisplay.setAttribute('src',imageView[Number(imageDisplay.getAttribute('index')) - 1].getAttribute("data-src"))
+                imageDisplay.setAttribute('index', Number(imageDisplay.getAttribute('index')) - 1)
+            }
+
+            if(e.target.closest('.button').classList.contains('next')){
+                imageDisplay.setAttribute('src', imageView[Number(imageDisplay.getAttribute('index')) + 1].getAttribute("data-src"))
+                imageDisplay.setAttribute('index', Number(imageDisplay.getAttribute('index')) + 1)
+            }
+            
+            if(checkImageIndex(imageDisplay.getAttribute('index'))) {
+                e.target.closest('.button').classList.add('disabled'); 
+                e.target.closest('.button').disabled = true;
+            }else{
+                let disabledButton = document.querySelector('.button.disabled');
+                if (disabledButton) {
+                    disabledButton.classList.remove('disabled'); 
+                    disabledButton.disabled = false;
+                }
+            }
+        }
+
+        if (e.target && e.target.closest('.open-info')) {
+            document.querySelector('.info').style.display = "flex";
+        }
+        if (e.target && e.target.closest('.close-info')) {
+            document.querySelector('.info').style.display = "none";
+        }
+}
 function main(){
     if(document.querySelector('.imageView')){
         const imageView = document.querySelectorAll('.imageView');
@@ -58,59 +97,19 @@ function main(){
 
     }
 
-    document.body.addEventListener('click', (e) => {
-        const imageView = document.querySelectorAll('.imageView');
+    document.body.removeEventListener('click', handleClick);
+    document.body.addEventListener('click', handleClick);
 
-        if(e.target && e.target.closest('.imageViewWrapper') === e.target){
-            document.querySelector('.imageViewWrapper').remove();
-        }
-
-        if(e.target && e.target.closest('.button')){
-            let imageDisplay = document.querySelector('.imageDisplay');
-
-            if(e.target.closest('.button').classList.contains('previous')){ 
-                imageDisplay.setAttribute('src',imageView[Number(imageDisplay.getAttribute('index')) - 1].getAttribute("data-src"))
-                imageDisplay.setAttribute('index', Number(imageDisplay.getAttribute('index')) - 1)
-            
-                
-            }
-
-            if(e.target.closest('.button').classList.contains('next')){
-                imageDisplay.setAttribute('src', imageView[Number(imageDisplay.getAttribute('index')) + 1].getAttribute("data-src"))
-                imageDisplay.setAttribute('index', Number(imageDisplay.getAttribute('index')) + 1)
-
-            }
-            
-            if(checkImageIndex(imageDisplay.getAttribute('index'))) {
-                e.target.closest('.button').classList.add('disabled'); 
-                e.target.closest('.button').disabled = true;
-            }else{
-                let disabledButton = document.querySelector('.button.disabled');
-                if (disabledButton) {
-                    disabledButton.classList.remove('disabled'); 
-                    disabledButton.disabled = false;
-                }
-            }
-        }
-
-        if (e.target && e.target.closest('.open-info')) {
-            document.querySelector('.info').style.display = "flex";
-        }
-        if (e.target && e.target.closest('.close-info')) {
-            document.querySelector('.info').style.display = "none";
-        }
-    })
-
-    function checkImageIndex(num) {
-        const imageView = document.querySelectorAll('.imageView');
-        num = Number(num);
-        if(num == imageView.length - 1 || num == 0) return true;
-        return false;
-    }
-
+    
     if(screen.width < 601 || screen.width < 801){
         document.querySelector('.info').style.display = "none";
     }
+}
+function checkImageIndex(num) {
+    const imageView = document.querySelectorAll('.imageView');
+    num = Number(num);
+    if(num == imageView.length - 1 || num == 0) return true;
+    return false;
 }
 main();
 const menuButton = document.querySelectorAll('.menuButton');

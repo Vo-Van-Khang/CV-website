@@ -281,7 +281,7 @@ menuButton.forEach( (button) => {
                                     </ul>
                                 </div>
                                 <div class="project">
-                                    <span>7 - 2024</span> <br>
+                                    <span>8 - 2024</span> <br>
                                     <a target="_blank" href="https://github.com/Vo-Van-Khang/DuAnTotNghiep.git">Online Movie website - Graduation Project</a> <br>
                                     <ul>
                                         <li>Database design</li>

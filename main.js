@@ -91,7 +91,13 @@ function main(){
                     disabledButton.disabled = false;
                 }
             }
-            
+        }
+
+        if (e.target && e.target.closest('.open-info')) {
+            document.querySelector('.info').style.display = "flex";
+        }
+        if (e.target && e.target.closest('.close-info')) {
+            document.querySelector('.info').style.display = "none";
         }
     })
 
@@ -101,12 +107,16 @@ function main(){
         if(num == imageView.length - 1 || num == 0) return true;
         return false;
     }
-}
 
+    if(screen.width < 601 || screen.width < 801){
+        document.querySelector('.info').style.display = "none";
+    }
+}
+main();
 const menuButton = document.querySelectorAll('.menuButton');
 const content = document.querySelector('.content');
 menuButton.forEach( (button) => {
-    button.addEventListener('click',()=>{
+    button.addEventListener('click', ()=>{
         let template;
         let title;
         if(button.getAttribute("data-page") == "home"){
@@ -306,6 +316,7 @@ menuButton.forEach( (button) => {
             `
         }
         content.innerHTML = "";
+        content.scrollTop;
         document.title = title;
         content.insertAdjacentHTML('beforeend', template);
         main();
